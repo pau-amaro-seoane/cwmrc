@@ -1,0 +1,215 @@
+# cwmrc configuration file
+# Pau Amaro Seoane, Berlin, 02/Nov/2016
+
+# 16/May/2017
+# Changed to new syntax:
+# bind-> bind-key
+# group-> group-only-
+# movetogroup-> window-movetogroup-
+
+
+            # ******************** Quick Notes ******************* #
+
+
+# ================
+# Quick notes
+# ================
+
+# The following modifiers are recognised:
+#
+#      C       Control key.
+#      M       Meta key.
+#      S       Shift key.
+#      4       Mod4 (windows) key.
+#      5       Mod5 (AltGr) key.
+
+# CM-Enter spawns a new xterm
+# CM-= maximizes the window vertically
+# CMS-= maximizes the window horizontally
+# MS-/ spawns exec menu (MS-/, then "firefox" launches Firefox)
+# CM-[n] selects window group [n]
+# CM-0 selects all groups
+# CM-g adds currently selected window to currently selected group
+# CMS-r restarts cwm (re-reading .cwmrc)
+# CMS-q quits
+# Use xprop to click on the window you care about to obtain WM_CLASS
+
+
+            # ******************** Define path for scripts ******************* #
+
+
+cwmscr=$HOME/fitx_confg/cwm/scripts
+
+
+            # ******************** Windows decoration ******************* #
+
+borderwidth 0
+#color activeborder   grey
+#color inactiveborder black
+
+            # ******************** Virtual Desktops ******************* #
+
+
+# ================
+# Virtual Desktops
+# ================
+#
+# There are two directives that aren't included in the default keyboard shortcuts
+# list: group-only-[n] and window-movetogroup-[n] (where [n] is the number corresponding to
+# window groups 1-9).
+#
+# You can select a group and add a window to it.  And you can toggle that group's
+# visibility with CM-[n].
+
+# But, window groups get more powerful when you can select a window group while
+# hiding windows in any other group.
+
+# To do this, I added the following to my ~/.cwmrc (and typed CMS-r):
+
+bind-key M-1        group-only-1
+bind-key M-2        group-only-2
+bind-key M-3        group-only-3
+bind-key M-4        group-only-4
+bind-key M-5        group-only-5
+bind-key M-6        group-only-6
+bind-key M-7        group-only-7
+bind-key M-8        group-only-8
+bind-key M-9        group-only-9
+bind-key MS-1       window-movetogroup-1
+bind-key MS-2       window-movetogroup-2
+bind-key MS-3       window-movetogroup-3
+bind-key MS-4       window-movetogroup-4
+bind-key MS-5       window-movetogroup-5
+bind-key MS-6       window-movetogroup-6
+bind-key MS-7       window-movetogroup-7
+bind-key MS-8       window-movetogroup-8
+bind-key MS-9       window-movetogroup-9
+
+# Now, if I type M-2, it only shows windows in window group 2.
+# And, I can more easily move windows to other groups with MS-[n].
+# For instance, shift+alt+2 will move the current window to group 2
+
+# Turn on sticky-group mode, so that windows launched in current group
+# stick to that group per default
+sticky yes
+
+# I am using -class "mutt" with xterm to run mutt
+autogroup 1 "xterm,mutt"
+
+# Launch web Telegram/Whatsapp/skype with
+# chrome as an app, which removes
+# deco and uses particular WM_CLASS
+# (see bind section)
+autogroup 2 "crx_nigookeodlehlnjcpdfifmophdcbjoma,Chromium-browser"
+autogroup 2 "web.whatsapp.com,Chromium-browser"
+autogroup 2 "web.skype.com__es,Chromium-browser"
+autogroup 2 "crx_bikioccmkafdpakkkcpdbppfkghcmihk,Chromium-browser"
+autogroup 2 "web.telegram.org,Chromium-browser"
+autogroup 2 "crx_djjkifoefibfoodilnhkmbhmadbgacni,Chromium-browser"
+autogroup 2 "Pidgin,Pidgin"
+# Rest of chrom tabs to Desktop#4
+autogroup 4 "chromium-browser,Chromium-browser"
+
+# Place firefox in Desktop#4
+autogroup 4 "Navigator,Firefox"
+
+# xclock and battery check in all desktops
+sticky yes
+autogroup 0 XClock
+
+# Place qemu with ubuntu linux in Desktop#3
+autogroup 3 "qemu-system-x86_64,Qemu-system-x86_64"
+
+
+            # ******************** Bind definitions ******************* #
+
+# In general, I use the win (4) key for "applications" and the alt (M) key for
+# "configuration programmes".
+#
+# To find out what the key's name is, use xev(1)
+
+# ******************** Configuration bindings
+
+# Use win key and "space" to toggle between the us and es 
+# xkbmap. The idea is to try to keep it close to what
+# linux mate and windows use (4-Space).
+
+bind-key 4-space /home/pau/bin/toggle-setxkbmap-es-us.sh
+
+# Use alt-d or alt-s to configure display (always forget if it's _d_isplay or _s_creen)
+bind-key M-d xfce4-display-settings
+bind-key M-s xfce4-display-settings
+
+# ******************** Applications bindings
+
+# Redefine CM-Return to use some definitions of xterm
+# For available fonts, check xlsfonts
+# For Ubuntu fonts, install ubuntu-fonts
+# If not available, use Bitstream Vera Sans Mono
+
+bind-key CM-Return 'xterm -fa "Ubuntu Mono" +sb -fs 10 -cc 46:48,47:48,63:48,37:48,38:48,35:48,58:48,45:48,126:48,43:48,61:48,64:48,36:48 -bg "#2f3238" -fg white'
+
+# Define CM-r to login as root on xterm
+
+bind-key CM-r 'xterm -fa "Ubuntu Mono" +sb -fs 10 -cc 46:48,47:48,63:48,37:48,38:48,35:48,58:48,45:48,126:48,43:48,61:48,64:48,36:48 -bg black -fg red -title "BE CAREFUL" -e login su'
+
+# Use win-m to launch mutt on xterm
+# and use -class mutt to get an addendum
+# on WM_CLASS which can be used to
+# autogroup it on #1
+
+bind-key 4-m /home/pau/bin/Xtm_Mutt.sh
+
+# Same for the riseup account, win-r
+bind-key 4-r /home/pau/bin/Xtm_MuttRiseup.sh
+
+# Same for riseup account via tor and onion, win-o
+bind-key 4-o /home/pau/bin/Xtm_MuttRiseupOnion.sh
+
+# Same for the protonmail account, win-p
+bind-key 4-p /home/pau/bin/Xtm_MuttProtonMail.sh
+
+# Same for the protonmail account, win-d
+bind-key 4-d /home/pau/bin/Xtm_MuttDESY.sh
+
+# Use win-T to launch my script Tameion.sh
+
+bind-key 4-T 'xterm -fa "Ubuntu Mono" +sb -fs 10 -cc 46:48,47:48,63:48,37:48,38:48,35:48,58:48,45:48,126:48,43:48,61:48,64:48,36:48 -bg black -fg white -e "/usr/local/bin/vim /home/pau/fitx_confg/tameion/tameion.txt"'
+
+# lock the screen with 4-l
+
+bind-key 4-l slock
+
+# Use win and t, w for web Telegram and Whatsapp. By running it with the "--app" flag
+# window decoration seems to be removed but, more imporant, WM_CLASS inherits the URL
+# we call, which allows us to autogroup it where we wish (in my case, Desktop#2)
+# When in China, use proxy server after a ssh -D 8000 to a server elsewhere:
+# --proxy-server="socks5://127.0.0.1:8000"
+bind-key 4-t 'iridium --proxy-server="socks5://127.0.0.1:8000" --app=https://web.telegram.org/'
+bind-key 4-w "iridium --app=https://web.whatsapp.com/"
+# To obtain signal's app ID, go to chrome://extensions, signal, Details: Create shortcut
+# This will create a shortcut link in your Desktop folder. Use less to get the
+# ID. It is the string after "StartupWMClass", last line
+bind-key 4-s "chrome --app-id=bikioccmkafdpakkkcpdbppfkghcmihk"
+bind-key 4-S "chrome --app=https://web.skype.com/es/"
+
+# Use win-x for a screenshooter
+# This will use import and keep the screenshot as /tmp/_qq.jpg for
+# historical, romantic reasons. Keep the size of the terminal as
+# small as possible
+bind-key 4-x 'xterm -geometry 0x0+0+0 -e "/usr/local/bin/import /tmp/$$.jpg"'
+
+# Use CTRL+ALT+p to switch to HDMI-2 with xrandr (movie projector home)
+bind-key CM-p /home/pau/bin/xrandr_pantalla_cinema.sh
+
+# Use CTRL+ALT+l to switch to laptop with xrandr
+bind-key CM-l /home/pau/bin/xrandr_portatil.sh
+
+# Get battery life with xmessage
+bind-key 4-b /home/pau/bin/xmessage_apm.sh
+
+# Time with xmessage as well
+bind-key 4-h /home/pau/bin/xmessage_hora.sh
+
+# launch qemu with ubuntu on desktop 3
+bind-key 4-u /home/pau/bin/QEMU.sh
