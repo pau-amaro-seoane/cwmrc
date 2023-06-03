@@ -32,8 +32,9 @@
 # CM-g adds currently selected window to currently selected group
 # CMS-r restarts cwm (re-reading .cwmrc)
 # CMS-q quits
+#
 # Use xprop to click on the window you care about to obtain WM_CLASS
-
+#     =====
 
             # ******************** Define path for scripts ******************* #
 
@@ -107,11 +108,13 @@ autogroup 2 "crx_bikioccmkafdpakkkcpdbppfkghcmihk,Chromium-browser"
 autogroup 2 "web.telegram.org,Chromium-browser"
 autogroup 2 "crx_djjkifoefibfoodilnhkmbhmadbgacni,Chromium-browser"
 autogroup 2 "Pidgin,Pidgin"
+autogroup 2 "telegram,telegram"
+autogroup 2 "signal,Signal"
 # Rest of chrom tabs to Desktop#4
 autogroup 4 "chromium-browser,Chromium-browser"
 
 # Place firefox in Desktop#4
-autogroup 4 "Navigator,Firefox"
+autogroup 4 "Navigator,firefox-default"
 
 # xclock and battery check in all desktops
 sticky yes
@@ -126,7 +129,7 @@ autogroup 3 "qemu-system-x86_64,Qemu-system-x86_64"
 # In general, I use the win (4) key for "applications" and the alt (M) key for
 # "configuration programmes".
 #
-# To find out what the key's name is, use xev(1)
+# To find out what the key's name is, use xwininfo or xev
 
 # ******************** Configuration bindings
 
@@ -146,12 +149,13 @@ bind-key M-s xfce4-display-settings
 # For available fonts, check xlsfonts
 # For Ubuntu fonts, install ubuntu-fonts
 # If not available, use Bitstream Vera Sans Mono
-
-bind-key CM-Return 'xterm -fa "Ubuntu Mono" +sb -fs 10 -cc 46:48,47:48,63:48,37:48,38:48,35:48,58:48,45:48,126:48,43:48,61:48,64:48,36:48 -bg "#2f3238" -fg white'
+# The -ls -xrm "XTerm*selectToClipboard:true" option
+# allows to paste from e.g. firefox with a middle click
+bind-key CM-Return 'xterm -ls -xrm "XTerm*selectToClipboard:true" -fa "Ubuntu Mono" +sb -fs 18 -cc 46:48,47:48,63:48,37:48,38:48,35:48,58:48,45:48,126:48,43:48,61:48,64:48,36:48 -bg "#2f3238" -fg white'
 
 # Define CM-r to login as root on xterm
 
-bind-key CM-r 'xterm -fa "Ubuntu Mono" +sb -fs 10 -cc 46:48,47:48,63:48,37:48,38:48,35:48,58:48,45:48,126:48,43:48,61:48,64:48,36:48 -bg black -fg red -title "BE CAREFUL" -e login su'
+bind-key CM-r 'xterm -ls -xrm "XTerm*selectToClipboard:true" -fa "Ubuntu Mono" +sb -fs 18 -cc 46:48,47:48,63:48,37:48,38:48,35:48,58:48,45:48,126:48,43:48,61:48,64:48,36:48 -bg black -fg red -title "BE CAREFUL" -e login su'
 
 # Use win-m to launch mutt on xterm
 # and use -class mutt to get an addendum
@@ -172,10 +176,6 @@ bind-key 4-p /home/pau/bin/Xtm_MuttProtonMail.sh
 # Same for the protonmail account, win-d
 bind-key 4-d /home/pau/bin/Xtm_MuttDESY.sh
 
-# Use win-T to launch my script Tameion.sh
-
-bind-key 4-T 'xterm -fa "Ubuntu Mono" +sb -fs 10 -cc 46:48,47:48,63:48,37:48,38:48,35:48,58:48,45:48,126:48,43:48,61:48,64:48,36:48 -bg black -fg white -e "/usr/local/bin/vim /home/pau/fitx_confg/tameion/tameion.txt"'
-
 # lock the screen with 4-l
 
 bind-key 4-l slock
@@ -185,12 +185,11 @@ bind-key 4-l slock
 # we call, which allows us to autogroup it where we wish (in my case, Desktop#2)
 # When in China, use proxy server after a ssh -D 8000 to a server elsewhere:
 # --proxy-server="socks5://127.0.0.1:8000"
-bind-key 4-t 'iridium --proxy-server="socks5://127.0.0.1:8000" --app=https://web.telegram.org/'
+#bind-key 4-t 'iridium --proxy-server="socks5://127.0.0.1:8000" --app=https://web.telegram.org/'
+bind-key 4-t 'telegram-desktop'
 bind-key 4-w "iridium --app=https://web.whatsapp.com/"
-# To obtain signal's app ID, go to chrome://extensions, signal, Details: Create shortcut
-# This will create a shortcut link in your Desktop folder. Use less to get the
-# ID. It is the string after "StartupWMClass", last line
-bind-key 4-s "chrome --app-id=bikioccmkafdpakkkcpdbppfkghcmihk"
+# For signal, we use the vm with ubuntu
+bind-key 4-s /home/pau/bin/signal_vm.sh
 bind-key 4-S "chrome --app=https://web.skype.com/es/"
 
 # Use win-x for a screenshooter
