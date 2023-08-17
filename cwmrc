@@ -151,11 +151,11 @@ bind-key M-s xfce4-display-settings
 # If not available, use Bitstream Vera Sans Mono
 # The -ls -xrm "XTerm*selectToClipboard:true" option
 # allows to paste from e.g. firefox with a middle click
-bind-key CM-Return 'xterm -ls -xrm "XTerm*selectToClipboard:true" -fa "Ubuntu Mono" +sb -fs 18 -cc 46:48,47:48,63:48,37:48,38:48,35:48,58:48,45:48,126:48,43:48,61:48,64:48,36:48 -bg "#2f3238" -fg white'
+bind-key CM-Return 'xterm -fa "Ubuntu Mono" +sb -fs 18 -cc 46:48,47:48,63:48,37:48,38:48,35:48,58:48,45:48,126:48,43:48,61:48,64:48,36:48 -bg "#2f3238" -fg white'
 
 # Define CM-r to login as root on xterm
 
-bind-key CM-r 'xterm -ls -xrm "XTerm*selectToClipboard:true" -fa "Ubuntu Mono" +sb -fs 18 -cc 46:48,47:48,63:48,37:48,38:48,35:48,58:48,45:48,126:48,43:48,61:48,64:48,36:48 -bg black -fg red -title "BE CAREFUL" -e login su'
+bind-key CM-r 'xterm -fa "Ubuntu Mono" +sb -fs 18 -cc 46:48,47:48,63:48,37:48,38:48,35:48,58:48,45:48,126:48,43:48,61:48,64:48,36:48 -bg black -fg red -title "BE CAREFUL" -e login su'
 
 # Use win-m to launch mutt on xterm
 # and use -class mutt to get an addendum
